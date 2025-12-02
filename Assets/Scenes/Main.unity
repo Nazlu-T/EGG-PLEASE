@@ -1594,7 +1594,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1357829935}
-  - component: {fileID: 1357829936}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -1617,26 +1616,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1357829936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357829933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8df8949eaa048214f90b26b59c4aaac5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cornAmount: 0
-  eggAmount: 0
-  money: 0
-  chickenCount: 2
-  godEventTriggered: 0
-  chickenPrefab: {fileID: 0}
-  spawnPoint: {fileID: 0}
-  statsText: {fileID: 0}
 --- !u!1001 &1363683313
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1771,7 +1750,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1484609703}
   - component: {fileID: 1484609702}
-  - component: {fileID: 1484609701}
   - component: {fileID: 1484609704}
   m_Layer: 0
   m_Name: SellPoint
@@ -1780,18 +1758,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1484609701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1484609700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddff7ff960430964a8429dae450d9953, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1484609702
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17545,7 +17511,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7285650697553031148, guid: 0efdad5fa9af55342853fa6053089dfc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -17659,7 +17626,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerGuy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 134730658273934910, guid: 6a88e2f8ea79a994eaf372809b9939ee, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -17669,11 +17637,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 919414154}
   - {fileID: 619394802}
   - {fileID: 184748051}
   - {fileID: 1357829935}
   - {fileID: 2136966325}
-  - {fileID: 919414154}
   - {fileID: 841997462738059578}
   - {fileID: 2094975893}
   - {fileID: 355516918}

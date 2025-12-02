@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6955854174403683390}
   - component: {fileID: 3062894260196401411}
   - component: {fileID: 3097109841065065352}
-  - component: {fileID: 7285650697553031148}
+  - component: {fileID: 4488736487793017964}
   m_Layer: 0
   m_Name: Chicken
   m_TagString: Chicken
@@ -125,7 +125,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.05258982}
   m_Radius: 1.042404
---- !u!114 &7285650697553031148
+--- !u!114 &4488736487793017964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAdult: 0
+  hasEgg: 0
   hungerTimer: 0
   eggTimer: 0
   timeToGetHungry: 10

@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro; // UI için
+using TMPro; 
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [Header("UI Referansları")]
     public TextMeshProUGUI inventoryText;
     
-    // Etkileşimde olunan objeyi tutmak için geçici değişken
+    
     private Collider2D currentInteractable = null; 
 
     void Start()
@@ -26,11 +26,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // 1. Girişler (Input)
+        // 1. Girişler 
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         
-        // 2. Etkileşim Tuşu (Örn: E tuşu)
+        // 2. Etkileşim Tuşu 
         if (Input.GetKeyDown(KeyCode.E) && currentInteractable != null)
         {
             TryInteract();
@@ -39,24 +39,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Fizik motoru ile hareket
+        
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
     }
     
-    // ----------------------------------------------------
-    // KAYNAK TOPLAMA ve ETKİLEŞİM BÖLÜMÜ
-    // ----------------------------------------------------
-    
-    // Oyuncu bir Tetikleyiciye (Trigger) girdiğinde
+   
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Corn (Mısır): Dokunmak yeterli, otomatik toplansın.
+       
         if (other.CompareTag("Corn"))
         {
-            other.GetComponent<CornCollectible>().Collect(this); // Mısır scriptini çağır
+            other.GetComponent<CornCollectible>().Collect(this); 
         }
         
-        // Diğer objeler (Tavuk, Satış Kutusu) için sadece hedefi kaydet
+        
         else if (other.CompareTag("Chicken") || other.CompareTag("SellPoint"))
         {
             currentInteractable = other;
@@ -64,7 +60,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Oyuncu bir Tetikleyiciden çıktığında
+    
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other == currentInteractable)
@@ -74,7 +70,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 'E' tuşuna basılınca ne yapılacağını belirleyen ana fonksiyon
+   
     void TryInteract()
     {
         if (currentInteractable.CompareTag("Chicken"))
@@ -87,8 +83,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Public Metotlar (Başka scriptler buraya yumurta/mısır eklemek için çağırır)
-    public void UpdateInventoryUI()
+        public void UpdateInventoryUI()
     {
         inventoryText.text = $"Mısır: {playerCorn}\nYumurta: {playerEggs}";
     }

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6715536656545945819}
   - component: {fileID: 8853342928118495514}
   - component: {fileID: 3794990669850852390}
-  - component: {fileID: 134730658273934910}
   - component: {fileID: 2803653520888362993}
+  - component: {fileID: 5823525031152576775}
   m_Layer: 0
   m_Name: PlayerGuy
   m_TagString: Player
@@ -178,18 +178,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9375, y: 1.375}
   m_Direction: 0
---- !u!114 &134730658273934910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1733224311606480534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62120bcd2988c544b63ef4a5a34ceb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2803653520888362993
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -226,3 +214,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.6875
+--- !u!114 &5823525031152576775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733224311606480534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62120bcd2988c544b63ef4a5a34ceb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  playerCorn: 0
+  playerEggs: 0
+  inventoryText: {fileID: 0}

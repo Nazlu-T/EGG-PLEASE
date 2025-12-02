@@ -8,20 +8,19 @@ public class GameManager : MonoBehaviour
     [Header("Küresel Ekonomi ve Kontrol")]
     public int money = 0; // Oyuncuların yumurta satarak kazandığı küresel para
     public bool godEventTriggered = false;
+    public int chickenCount = 2; // Başlangıç sayısını takip et
 
     [Header("Referanslar")]
     public GameObject chickenPrefab;
     public Transform spawnPoint;
-    public TextMeshProUGUI globalMoneyText; // Global para birimini göstermek için
-    
-    // NOT: statsText kaldırıldı. Çünkü artık oyuncu envanterini PlayerController yönetiyor.
+    public TextMeshProUGUI globalMoneyText; // Global parayı göstermek için
 
     void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
-            Destroy(gameObject); // Birden fazla GameManager olmasını engeller
+            Destroy(gameObject);
     }
 
     void Update()
@@ -30,21 +29,17 @@ public class GameManager : MonoBehaviour
         CheckGodEvent();
     }
 
-    // Küresel Para Arayüzünü güncelle
     void UpdateGlobalUI()
     {
-        // inventoryText'ten farklı bir Text bileşeni kullanmalısın.
         if (globalMoneyText != null)
         {
             globalMoneyText.text = $"Para: {money}$";
         }
     }
 
-    // Tanrısal Olay Kontrolü
     void CheckGodEvent()
     {
-        // God Event şartını money (küresel para) üzerine kuralım.
-        // Örnek: Toplam 25 Para kazandığında olay tetiklensin.
+        // Örnek: Toplam 25 Para kazanıldığında olay tetiklensin.
         if (!godEventTriggered && money >= 25)
         {
             TriggerGodEvent();
@@ -57,6 +52,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("GÖKLERDEN GELEN BİR KARAR VARDIR...");
 
         Instantiate(chickenPrefab, spawnPoint.position, Quaternion.identity);
-        // NOT: ChickenCount'u burada artırmak yerine, tavuk prefabının Start() fonksiyonunda sayımı artırması daha temiz olur.
+        chickenCount++; 
+        // Burada görsel efektler/sesler eklenebilir.
     }
 }
