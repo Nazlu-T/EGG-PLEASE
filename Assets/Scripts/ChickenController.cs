@@ -2,76 +2,58 @@ using UnityEngine;
 
 public class ChickenController : MonoBehaviour
 {
-    [Header("Durum")]
-    public bool isAdult = false;
-    public float hungerTimer = 0f;
-    public float eggTimer = 0f;
-
-    [Header("Ayarlar")]
-    public float timeToGetHungry = 10f; // 10 saniyede bir acıkır
-    public float timeToLayEgg = 5f;     // 5 saniyede bir yumurtlar (Yetişkinse)
+    // ... [Mevcut Hız/Timer Değişkenleri] ...
     
-    // Görsel değişim için (Renk veya Sprite)
-    private SpriteRenderer sr;
-
-    void Start()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        // Bebek tavuk küçük başlar
-        transform.localScale = new Vector3(0.5f, 0.5f, 1f); 
-    }
-
-    void Update()
-    {
-        // 1. Acıkma Mantığı
-        hungerTimer += Time.deltaTime;
-        if(hungerTimer >= timeToGetHungry)
-        {
-            // Acıktı görseli (Örn: Rengi kırmızılaşır)
-            sr.color = Color.red; 
-        }
-
-        // 2. Yumurtlama Mantığı (Sadece yetişkinse ve aç değilse)
-        if (isAdult && hungerTimer < timeToGetHungry)
-        {
-            eggTimer += Time.deltaTime;
-            if (eggTimer >= timeToLayEgg)
-            {
-                LayEgg();
-                eggTimer = 0;
-            }
-        }
-    }
-
-    // Tavuğa tıklandığında (Besleme)
-    void OnMouseDown()
-    {
-        // Eğer oyuncunun mısırı varsa ve tavuk açsa
-        if (GameManager.Instance.cornAmount > 0)
-        {
-            FeedChicken();
-        }
-    }
-
-    void FeedChicken()
-    {
-        GameManager.Instance.cornAmount--; // Mısır harca
-        hungerTimer = 0; // Karnı doydu
-        sr.color = Color.white; // Rengi düzeldi
-        
-        // Eğer bebekse büyüsün
-        if (!isAdult)
-        {
-            isAdult = true;
-            transform.localScale = Vector3.one; // Normal boyuta dön
-            Debug.Log("Tavuk Büyüdü!");
-        }
-    }
+    public bool hasEgg = false; // Toplanmayı bekleyen yumurta var mı?
+    
+    // ... [Start ve Update fonksiyonları aynı kalır] ...
 
     void LayEgg()
     {
-        GameManager.Instance.eggAmount++;
-        Debug.Log("Yumurta geldi!");
-        // İstersen buraya 'Instantiate' ile yere fiziksel yumurta düşürebilirsin.
+        if (!hasEgg)
+        {
+            eggTimer = 0;
+            hasEgg = true;
+            Debug.Log("Tavuk yumurtladı, toplanmayı bekliyor.");
+            // GÖRSEL İPUCU: Buraya yumurta sprite'ı/objesi eklenebilir.
+        }
     }
+    
+    // YENİ ETKİLEŞİM METODU: PlayerController tarafından çağrılır
+    public void Interact(PlayerController player)
+    {
+        if (hasEgg)
+        {
+            // 1. Yumurta Toplama
+            player.playerEggs++;
+            player.UpdateInventoryUI();
+            hasEgg = false; // Yumurta alındı
+            Debug.Log("Yumurta toplandı!");
+            // GÖRSEL İPUCU: Yumurta görseli kaldırılır.
+        }
+        else if (hungerTimer >= timeToGetHungry)
+        {
+            // 2. Besleme
+            if (player.playerCorn > 0)
+            {
+                player.playerCorn--; // Player envanterinden mısır harca
+                player.UpdateInventoryUI();
+                
+                // Eski besleme mantığını çağır (büyüme, renk değişimi)
+                FeedChicken(); 
+                Debug.Log("Tavuk beslendi.");
+            }
+            else
+            {
+                Debug.Log("Mısırın yok!");
+            }
+        }
+        else
+        {
+            Debug.Log("Tavuk doygun veya henüz yumurtlamadı.");
+        }
+    }
+    
+    // OnMouseDown fonksiyonunu bu scriptten tamamen kaldır.
+    // ... [FeedChicken fonksiyonu ve diğerleri aynı kalır] ...
 }

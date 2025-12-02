@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class CornCollectible : MonoBehaviour
 {
-    void OnMouseDown()
+    // OnMouseDown kaldırıldı. PlayerController tarafından çağrılacak.
+    public void Collect(PlayerController player)
     {
-        GameManager.Instance.cornAmount++;
-        Destroy(gameObject); // Mısırı sahneden yok et (Toplandı)
+        player.playerCorn++;          // Player'ın envanterine ekle
+        player.UpdateInventoryUI();   // Arayüzü güncelle
+        
+        Destroy(gameObject);          // Mısırı sahneden yok et
     }
 }

@@ -1,47 +1,51 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro; 
+using TMPro; // UI işlemleri için
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance; 
+    public static GameManager Instance;
 
-    [Header("Ekonomi")]
-    public int cornAmount = 0;
-    public int eggAmount = 0;
-    public int money = 0;
-
-    [Header("Oyun Durumu")]
-    public int chickenCount = 2;
+    [Header("Küresel Ekonomi ve Kontrol")]
+    public int money = 0; // Oyuncuların yumurta satarak kazandığı küresel para
     public bool godEventTriggered = false;
 
     [Header("Referanslar")]
-    public GameObject chickenPrefab; 
-    public Transform spawnPoint; // Tavuğun doğacağı yer (Void'den gelen)
-    public TextMeshProUGUI statsText; 
+    public GameObject chickenPrefab;
+    public Transform spawnPoint;
+    public TextMeshProUGUI globalMoneyText; // Global para birimini göstermek için
+    
+    // NOT: statsText kaldırıldı. Çünkü artık oyuncu envanterini PlayerController yönetiyor.
 
     void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject); // Birden fazla GameManager olmasını engeller
     }
 
     void Update()
     {
-        UpdateUI();
+        UpdateGlobalUI();
         CheckGodEvent();
     }
 
-    // Arayüzü güncelle
-    void UpdateUI()
+    // Küresel Para Arayüzünü güncelle
+    void UpdateGlobalUI()
     {
-        statsText.text = $"Mısır: {cornAmount} | Yumurta: {eggAmount} | Para: {money}$";
+        // inventoryText'ten farklı bir Text bileşeni kullanmalısın.
+        if (globalMoneyText != null)
+        {
+            globalMoneyText.text = $"Para: {money}$";
+        }
     }
 
     // Tanrısal Olay Kontrolü
     void CheckGodEvent()
     {
-        // Örnek Şart: 5 Yumurta topladığında olay tetiklensin
-        if (!godEventTriggered && eggAmount >= 5)
+        // God Event şartını money (küresel para) üzerine kuralım.
+        // Örnek: Toplam 25 Para kazandığında olay tetiklensin.
+        if (!godEventTriggered && money >= 25)
         {
             TriggerGodEvent();
         }
@@ -50,12 +54,9 @@ public class GameManager : MonoBehaviour
     void TriggerGodEvent()
     {
         godEventTriggered = true;
-        Debug.Log("God Dialog");
-        
-        // Yeni tavuğu yarat (God Chicken)
+        Debug.Log("GÖKLERDEN GELEN BİR KARAR VARDIR...");
+
         Instantiate(chickenPrefab, spawnPoint.position, Quaternion.identity);
-        chickenCount++;
-        
-        // Buraya ileride ekran titremesi veya ses efekti ekleyebilirsin
+        // NOT: ChickenCount'u burada artırmak yerine, tavuk prefabının Start() fonksiyonunda sayımı artırması daha temiz olur.
     }
 }
